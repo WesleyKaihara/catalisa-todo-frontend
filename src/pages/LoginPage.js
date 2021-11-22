@@ -41,12 +41,12 @@ const LoginPage = () => {
     } catch (error) {
       console.warn(error);
       const { response } = error;
-      if (response?.status === 401) {
+      if (response?.status === 401) {   //credenciais invalidas
         Modal.error({
           title: response.data.mensagem
         });
       } else {
-        Modal.error({
+        Modal.error({               //outros erros
           title: 'Não foi possível efetuar login, tente novamente mais tarde.'
         })
       }

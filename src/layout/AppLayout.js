@@ -7,7 +7,7 @@ import LocalStorageHelper from '../helpers/localstorage-helper';
 
 const { Header, Footer } = Layout;
 
-const MENU_ITEMS = [
+const MENU_ITEMS = [        //array do header
   {
     path: '/tasks',
     label: 'Minhas tarefas',

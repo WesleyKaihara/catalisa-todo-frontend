@@ -1,6 +1,6 @@
 const TaskListPage = () => {
     return (
-        <div></div>
+        <div>Tabela com as tarefas cadastradas</div>
     );
 }
 
