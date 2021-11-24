@@ -17,53 +17,51 @@ const { Title } = Typography;
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState({})
+  const [formValues, setFormValues] = useState({});
   const [loading, setLoading] = useState(false);
-  console.log(loading)
-  const handleLogin = useCallback(async () => {
+
+  const handleLogin = async () => {
     try {
-      setLoading(true);     //desabilita a entrada de dados
-      
-      const { email, password } = formValues;  //recebe os valores
-      
-      if (!email || !password) return;    //verifica se os campos estão preenchidos
- 
-      const body = {   //cria objeto para enviar para backend
+      setLoading(true);
+      const { email, password } = formValues;
+
+      const body = {
         email: email,
         senha: password,
-      }
-      
-      const response = await axios.post('/usuarios/login', body); //post com axios(onde,oque será enviado)
-      console.log(response)
-      LocalStorageHelper.setToken(response.data.token); //retorna .data (objeto com token)
-      
-      navigate('/tasks');   //completa o processo de login 
+      };
 
-    } catch (error) {    //Tratamento de erros
+      const response = await axios.post('/usuarios/login', body);
+
+      LocalStorageHelper.setToken(response.data.token);
+
+      navigate('/tasks');
+    } catch (error) {
       console.warn(error);
       const { response } = error;
-      if (response?.status === 401) {   //credenciais invalidas
+      if (response?.status === 401) {
         Modal.error({
-          title: response.data.mensagem
+          title: response.data.mensagem,
         });
       } else {
-        Modal.error({               //outros erros
-          title: 'Não foi possível efetuar login, tente novamente mais tarde.'
-        })
+        Modal.error({
+          title: 'Não foi possível entrar no momento, tente novamente mais tarde.',
+        });
       }
     } finally {
       setLoading(false);
     }
-  }, [formValues, navigate]);
+  };
 
-  const handleInputChange = useCallback((event) => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    
+
     setFormValues({
       ...formValues,
-      [name]: value,  //recebe name = email e password
-    })
-  }, [formValues]);
+      [name]: value,
+    });
+  };
+
+  console.log(formValues);
 
   return (
     <Content>
@@ -93,21 +91,21 @@ const LoginPage = () => {
                 name="email"
                 label="E-mail"
                 size="large"
-                onChange={handleInputChange}
                 validate={validateEmail}
-                disabled={loading}
+                onChange={handleInputChange}
                 required
+                disabled={loading}
               />
 
               <InputText
                 name="password"
                 label="Senha"
-                type="password"
                 size="large"
-                onChange={handleInputChange}
                 validate={validatePassword}
-                disabled={loading}
                 required
+                type="password"
+                onChange={handleInputChange}
+                disabled={loading}
               />
 
               <Button
@@ -120,7 +118,10 @@ const LoginPage = () => {
                 Entrar
               </Button>
 
-              <Link to="/subscription" className="ant-btn ant-btn-link ant-btn-lg ant-btn-block">
+              <Link
+                to="/subscription"
+                className="ant-btn ant-btn-link ant-btn-lg ant-btn-block"
+              >
                 Cadastre-se
               </Link>
             </Form>
