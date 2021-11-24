@@ -17,28 +17,29 @@ const { Title } = Typography;
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState('')
+  const [formValues, setFormValues] = useState({})
   const [loading, setLoading] = useState(false);
-
+  console.log(loading)
   const handleLogin = useCallback(async () => {
     try {
-      setLoading(true);
-
-      const { email, password } = formValues;
-
-      if (!email || !password) return;
-
-      const body = {
+      setLoading(true);     //desabilita a entrada de dados
+      
+      const { email, password } = formValues;  //recebe os valores
+      
+      if (!email || !password) return;    //verifica se os campos estão preenchidos
+ 
+      const body = {   //cria objeto para enviar para backend
         email: email,
         senha: password,
       }
+      
+      const response = await axios.post('/usuarios/login', body); //post com axios(onde,oque será enviado)
+      console.log(response)
+      LocalStorageHelper.setToken(response.data.token); //retorna .data (objeto com token)
+      
+      navigate('/tasks');   //completa o processo de login 
 
-      const response = await axios.post('/usuarios/login', body);
-
-      LocalStorageHelper.setToken(response.data.token);
-
-      navigate('/tasks');
-    } catch (error) {
+    } catch (error) {    //Tratamento de erros
       console.warn(error);
       const { response } = error;
       if (response?.status === 401) {   //credenciais invalidas
@@ -57,10 +58,10 @@ const LoginPage = () => {
 
   const handleInputChange = useCallback((event) => {
     const { name, value } = event.target;
-
+    
     setFormValues({
       ...formValues,
-      [name]: value,
+      [name]: value,  //recebe name = email e password
     })
   }, [formValues]);
 

@@ -1,6 +1,6 @@
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 //validar string
-
+//expressao regular
 export const validateEmail = (text) => {
     return text && EMAIL_REGEX.test(text)
         ? undefined

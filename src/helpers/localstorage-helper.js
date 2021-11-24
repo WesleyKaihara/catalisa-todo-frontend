@@ -2,7 +2,7 @@ import JwtDecode from 'jwt-decode';
 
 const LocalStorageHelper = {
     setToken(token) {
-        window.localStorage.setItem('USER_TOKEN', token);
+        window.localStorage.setItem('USER_TOKEN', token);  //banco de dados chave/valor
     },
     getToken() {
         return window.localStorage.getItem('USER_TOKEN');
