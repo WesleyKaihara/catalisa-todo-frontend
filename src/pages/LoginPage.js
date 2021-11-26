@@ -4,7 +4,7 @@ import {
   Typography, Modal
 } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 import Logo from '../assets/catalisa.png';
@@ -19,11 +19,13 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({});
   const [loading, setLoading] = useState(false);
+  const { email, password } = formValues;
+  const disableSubmit = !email || !password;
 
   const handleLogin = async () => {
     try {
       setLoading(true);
-      const { email, password } = formValues;
+     
 
       const body = {
         email: email,
@@ -114,6 +116,7 @@ const LoginPage = () => {
                 size="large"
                 onClick={handleLogin}
                 loading={loading}
+                disabled={disableSubmit}
               >
                 Entrar
               </Button>
