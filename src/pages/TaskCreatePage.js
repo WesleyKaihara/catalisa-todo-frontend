@@ -17,7 +17,7 @@ import {
     const navigate = useNavigate();
     const [formValues, setFormValues] = useState('')
     const [loading, setLoading] = useState(false);
-    const [finalizada,setFinalizada] = useState(false)
+    const [finalizada,setFinalizada] = useState(false);
     console.log(finalizada)
     const handleSubscription = useCallback(async () => {
       
@@ -53,7 +53,7 @@ import {
       } finally {
         setLoading(false);
       }
-    }, [formValues, navigate]);
+    }, [formValues, navigate,finalizada]); //Todas variáveis e métodos precisam estar declarados no array.(Deu erro porem ainda funcinava(CORRIGIDO))
   
     const handleInputChange = useCallback((event) => {
       const { name, value } = event.target;
